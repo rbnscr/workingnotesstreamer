@@ -1,0 +1,220 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+#app {
+  /* display: flex; */
+  height: 100vh;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow-x: auto;
+  /* overflow-y: hidden; */
+  background: #fafafa;
+  align-items: stretch;
+}
+
+.pane {
+  flex: 0 0 33%;
+  max-width: 33%;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 1rem;
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: white;
+  max-height: 100%;
+  transition: background-color 0.5s ease;
+  height: 100%;
+  padding-bottom: 20vh;
+}
+
+.pane h1, .pane h2, .pane h3 {
+  margin-top: 0;
+}
+
+
+
+a.dead-link {
+  color: #227aff;
+  /* pointer-events: none; */
+  /* text-decoration: underline dotted; */
+}
+
+.note-preview {
+  display: none;
+  position: absolute;
+  width: 20vw;
+  max-width: 600px;  
+  min-width: 400px;  /* optional */
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  font-size: 0.85em;
+  color: #333;
+  z-index: 1000;
+  pointer-events: none;
+  white-space: normal;
+}
+
+
+.backlinks {
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  font-size: 0.9em;
+}
+
+
+
+#page-header {
+  height: 25px;
+  background-color: #fafafa;
+  padding: 1rem;
+  font-weight: 400;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  flex-shrink: 0; /* do not shrink */
+}
+#page-header h1 {
+  margin: 0;
+  font-weight: 400;       /* not bold */
+  font-size: 1.2rem;      /* small, subtle */
+}
+
+.pane {
+  flex: 0 0 33%;       /* 1/3 of container width */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  /* padding: 0.5rem; */
+  overflow-y: auto;
+  max-height: 100%;    /* so it doesn’t exceed container */
+}
+
+
+.backlinks > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.note-preview {
+  position: absolute;
+  z-index: 1000;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 1.00rem;
+  max-width: 400px;
+  max-height: 400px;
+  overflow: auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.note-preview .preview-title {
+  font-size: 14px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 3px;
+}
+.note-preview .preview-body {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.backlink-preview {
+  font-size: 12px;
+  font-weight: normal;
+  text-decoration: none;
+  /* color: #333; */
+}
+
+.backlink-preview h1{
+  font-size: 12px;
+  font-weight: normal;
+  text-decoration: none;
+  color: #202020;
+}
+
+.backlink-preview *{
+  /* color: inherit !important; */
+  font-weight: inherit !important;
+  text-decoration: inherit !important;
+}
+
+.backlink-preview a {
+  pointer-events: none;   /* disables clicks */
+  color: inherit;         /* keep grey */
+  text-decoration: none;  /* remove underline */
+  cursor: default;        /* normal cursor instead of pointer */
+}
+
+.note-preview h1 {
+  font-size: 1.2rem; /* or any size you prefer */
+  margin: 0.25rem 0; /* optional: reduce spacing */
+}
+
+.backlink-item {
+  background: #f0f0f0;
+  border-radius: 8px !important;
+  /* padding: 0.5rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 150px;
+  overflow: hidden;
+  margin-bottom: 0rem;
+  margin-top: 0.5rem;
+}
+
+/* Slightly darker background on hover */
+.backlink-item:hover {
+  background: hsl(0, 0%, 81%) !important;
+}
+
+/* Backlink preview text inside boxes */
+.backlink-preview {
+  color: #555;
+  font-size: 0.85rem;
+  overflow: hidden;
+}
+.backlink-preview a {
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
+
+.backlink-snippet {
+  font-size: 0.85em;
+  color: #555;
+  margin-left: 0.2rem;
+}
+.backlinks {
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+  font-size: 0.9em;
+  color: #444;
+}
+
+.backlinks {
+  background: #f0f0f0 !important;
+  border-radius: 8px !important;
+  padding: 10px ;
+}
