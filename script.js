@@ -222,8 +222,31 @@ async function loadNote(filename, clickedPaneIndex = null) {
     return;
   }
 
-  const note = notesContent[filename];
-  const { textRaw, frontmatter } = note;
+  // ✅ fetch note if not yet loaded
+  if (!notesContent[filename]) {
+    try {
+      const response = await fetch(NOTES_DIR + filename);
+      if (!response.ok) throw new Error(`Failed to load ${filename}`);
+      let textRaw = await response.text();
+      let frontmatter = {};
+
+      if (textRaw.startsWith("---")) {
+        const end = textRaw.indexOf("---", 3);
+        if (end !== -1) {
+          const yamlText = textRaw.slice(3, end).trim();
+          try { frontmatter = jsyaml.load(yamlText) || {}; } catch(e) { console.warn(e); }
+          textRaw = textRaw.slice(end + 3).trim();
+        }
+      }
+      notesContent[filename] = { textRaw, frontmatter };
+    } catch (err) {
+      console.error(err);
+      showTemplate(filename, clickedPaneIndex);
+      return;
+    }
+  }
+
+  const { textRaw, frontmatter } = notesContent[filename];
 
   if (frontmatter.show === false) {
     showTemplate(filename, clickedPaneIndex);
@@ -233,7 +256,7 @@ async function loadNote(filename, clickedPaneIndex = null) {
   const existing = openPanes.find(p => p.dataset.file === filename);
   if (existing) {
     highlightPane(existing);
-    existing.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); // nearest for smoother movement
+    existing.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     return;
   }
 
@@ -255,7 +278,6 @@ async function loadNote(filename, clickedPaneIndex = null) {
   contentDiv.innerHTML = marked.parse(convertWikilinks(textRaw));
   fragment.appendChild(contentDiv);
 
-  // Add last_updated at bottom if available
   if (frontmatter.last_updated) {
     const lastDiv = document.createElement("div");
     lastDiv.className = "last-updated";
@@ -268,8 +290,6 @@ async function loadNote(filename, clickedPaneIndex = null) {
   
   const bl = createBacklinks(filename, pane);
   if (bl) fragment.appendChild(bl);
-
-
 
   pane.appendChild(fragment);
   container.appendChild(pane);
@@ -285,6 +305,7 @@ async function loadNote(filename, clickedPaneIndex = null) {
 
   pane.scrollIntoView({ behavior: "smooth", inline: "end", block: "nearest" });
 }
+
 
 // Boot
 (async function init() {
