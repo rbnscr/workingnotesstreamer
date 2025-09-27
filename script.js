@@ -30,7 +30,11 @@ async function buildBacklinksIndex(indexData) {
       const end = textRaw.indexOf("---", 3);
       if (end !== -1) {
         const yamlText = textRaw.slice(3, end).trim();
-        try { frontmatter = jsyaml.load(yamlText); } catch(e) { console.warn(e); }
+        try { 
+          frontmatter = jsyaml.load(yamlText) || {}; 
+        } catch(e) { 
+          console.warn(e); 
+        }
         textRaw = textRaw.slice(end + 3).trim();
       }
     }
